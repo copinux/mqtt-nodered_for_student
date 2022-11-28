@@ -1,0 +1,30 @@
+services:
+  node-red:
+    container_name: node-red
+    hostname: node-red
+    image: coppin/mynode-red:latest
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/London
+    networks:
+      - node-red-net
+    ports:
+      - "1880:1880"
+    volumes:
+      - node-red-data:/data
+
+  MQTTbroker:
+    container_name: MQTTbroker
+    hostname: MQTTbroker
+    image: coppin/mymqtt:latest
+    restart: unless-stopped
+    networks:
+      - node-red-net
+    ports:
+      - "1883:1883"
+      
+volumes:
+  node-red-data:
+
+networks:
+  node-red-net:
